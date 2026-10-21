@@ -22,7 +22,14 @@ const ACCENT: Record<Project["accent"], string> = {
   accent: "from-accent/25",
 };
 
+// Auto screenshot of the live site (WordPress mShots, free, no API key).
+// The very first load of a new URL can take a few seconds to generate.
+const screenshot = (url: string) =>
+  `https://s.wordpress.com/mshots/v1/${encodeURIComponent(url)}?w=900&h=560`;
+
 function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void }) {
+  const [imgFailed, setImgFailed] = useState(false);
+
   return (
     <TiltCard className="h-full">
       <article className="surface-card group relative flex h-full flex-col overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-[var(--shadow-float)]">
@@ -32,13 +39,26 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void
             ACCENT[project.accent],
           )}
         >
-          <div className="grid-lines absolute inset-0 opacity-40" />
+          {imgFailed ? (
+            <div className="grid-lines absolute inset-0 opacity-40" />
+          ) : (
+            <img
+              src={screenshot(project.live)}
+              alt={`${project.title} website preview`}
+              loading="lazy"
+              decoding="async"
+              onError={() => setImgFailed(true)}
+              className="absolute inset-0 size-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            />
+          )}
+          {/* darkens the image so the title always stays readable */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           <div className="absolute inset-0 flex items-end p-6">
-            <span className="font-display text-2xl font-semibold tracking-tight opacity-90 transition-transform duration-500 group-hover:-translate-y-1">
+            <span className="font-display text-2xl font-semibold tracking-tight text-white opacity-95 transition-transform duration-500 group-hover:-translate-y-1">
               {project.title}
             </span>
           </div>
-          <span className="absolute top-4 right-4 font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+          <span className="absolute top-4 right-4 rounded-md bg-black/45 px-2 py-1 font-mono text-[10px] tracking-[0.18em] text-white/85 uppercase backdrop-blur-sm">
             {project.client}
           </span>
         </div>
