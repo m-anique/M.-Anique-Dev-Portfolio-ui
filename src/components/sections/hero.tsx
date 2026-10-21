@@ -40,16 +40,72 @@ function RotatingRole() {
   );
 }
 
-function CodeWindow() {
-  const lines = [
-    { t: "const engineer = {", c: "text-muted-foreground" },
-    { t: '  name: "Muhammad Anique Qadir",', c: "text-foreground" },
-    { t: '  focus: ["interfaces", "performance"],', c: "text-secondary" },
-    { t: "  stack: [React, TypeScript, Node],", c: "text-accent" },
-    { t: "  shipsFast: true,", c: "text-success" },
-    { t: "};", c: "text-muted-foreground" },
-  ];
+// Lines typed out automatically in the hero code window. Edit freely.
+const CODE_LINES = [
+  { t: "const engineer = {", c: "text-muted-foreground" },
+  { t: '  name: "Muhammad Anique Qadir",', c: "text-foreground" },
+  { t: '  focus: ["interfaces", "performance"],', c: "text-secondary" },
+  { t: "  stack: [React, TypeScript, Node],", c: "text-accent" },
+  { t: "  shipsFast: true,", c: "text-success" },
+  { t: "};", c: "text-muted-foreground" },
+];
+const TOTAL_CHARS = CODE_LINES.reduce((n, l) => n + l.t.length, 0);
 
+function TypedCode() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setCount(TOTAL_CHARS);
+      return;
+    }
+    let timer: ReturnType<typeof setTimeout>;
+    const tick = (c: number) => {
+      if (c >= TOTAL_CHARS) {
+        // finished: pause, then loop again
+        timer = setTimeout(() => {
+          setCount(0);
+          tick(0);
+        }, 3200);
+        return;
+      }
+      timer = setTimeout(() => {
+        setCount(c + 1);
+        tick(c + 1);
+      }, 32 + Math.random() * 55); // human-like typing speed
+    };
+    timer = setTimeout(() => tick(0), 900);
+    return () => clearTimeout(timer);
+  }, []);
+
+  let consumed = 0;
+  return (
+    <pre className="min-h-[208px] overflow-x-auto px-5 py-5 font-mono text-[12.5px] leading-7 sm:text-[13.5px]">
+      {CODE_LINES.map((line, i) => {
+        const start = consumed;
+        consumed += line.t.length;
+        if (count < start) return null;
+        const shown = line.t.slice(0, Math.max(0, count - start));
+        const active =
+          (count >= start && count < start + line.t.length) ||
+          (i === CODE_LINES.length - 1 && count >= TOTAL_CHARS);
+        return (
+          <div key={i} className={line.c}>
+            <span className="mr-4 inline-block w-4 text-right text-muted-foreground/40">
+              {i + 1}
+            </span>
+            {shown}
+            {active && (
+              <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.15em] animate-pulse bg-primary" />
+            )}
+          </div>
+        );
+      })}
+    </pre>
+  );
+}
+
+function CodeWindow() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30, rotateX: 8 }}
@@ -69,22 +125,7 @@ function CodeWindow() {
           <span className="size-2.5 rounded-full bg-success/70" />
           <span className="ml-3 font-mono text-[11px] text-muted-foreground">engineer.ts</span>
         </div>
-        <pre className="overflow-x-auto px-5 py-5 font-mono text-[12.5px] leading-7 sm:text-[13.5px]">
-          {lines.map((line, i) => (
-            <motion.div
-              key={line.t}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.7 + i * 0.12, duration: 0.4 }}
-              className={line.c}
-            >
-              <span className="mr-4 inline-block w-4 text-right text-muted-foreground/40">
-                {i + 1}
-              </span>
-              {line.t}
-            </motion.div>
-          ))}
-        </pre>
+        <TypedCode />
       </motion.div>
 
       <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-primary/10 blur-3xl" />
