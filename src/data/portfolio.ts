@@ -123,7 +123,7 @@ export const PROJECTS: Project[] = [
     title: "Live Chat Application",
     client: "Personal product",
     summary:
-      "Realtime messaging interface with presence, typing indicators and an interface that stays readable at speed.",
+      "Realtime messaging UI with presence and typing indicators. The demo backend is currently offline, so the full source is on GitHub.",
     categories: ["React", "Frontend", "Backend"],
     stack: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "JWT"],
     live: "https://live-chat-app-ui.vercel.app/",
