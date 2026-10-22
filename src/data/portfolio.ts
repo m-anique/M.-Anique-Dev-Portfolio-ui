@@ -313,13 +313,13 @@ export const PROJECTS: Project[] = [
     },
   },
   {
-    id: "marketing-chambers",
-    title: "Marketing Chambers UK",
+    id: "marksol.pk",
+    title: "marksol.pk",
     client: "Marketing agency",
     summary: "Agency site built to sell capability through structure and proof.",
     categories: ["WordPress"],
     stack: ["WordPress", "Elementor", "SEO"],
-    live: "https://marketingchambersuk.com/",
+    live: "https://marksol.pk/",
     accent: "accent",
     caseStudy: {
       overview: "An agency site that had to demonstrate the craft it sells.",
