@@ -301,7 +301,7 @@ export const PROJECTS: Project[] = [
     summary: "Premium transport booking experience with a luxury visual register.",
     categories: ["WordPress"],
     stack: ["WordPress", "Elementor", "Booking Forms"],
-    live: "https://seymourchauffeurs.co.uk/",
+    live: "https://seymourchauffeursltd.co.uk/",
     accent: "primary",
     caseStudy: {
       overview: "A luxury chauffeur service where the site itself has to feel expensive.",
