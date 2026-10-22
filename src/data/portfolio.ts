@@ -127,7 +127,7 @@ export const PROJECTS: Project[] = [
     categories: ["React", "Frontend", "Backend"],
     stack: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "JWT"],
     live: "https://live-chat-app-ui.vercel.app/",
-    repo: "https://github.com/m-anique",
+    repo: "https://github.com/m-anique/Live-Chat-App-Server",
     accent: "primary",
     caseStudy: {
       overview:
