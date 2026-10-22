@@ -176,6 +176,33 @@ export const PROJECTS: Project[] = [
       results: ["Instant category switching from cache", "Readable at every breakpoint"],
     },
   },
+    {
+    id: "standard-drift",
+    title: "Standard Drift",
+    client: "Barcelona art & brand studio",
+    summary:
+      "Multilingual editorial site for an art platform: services, journal, artists directory, manifesto, FAQ and a contact form with a video hero.",
+    categories: ["WordPress"],
+    stack: ["WordPress", "Elementor", "TranslatePress", "Custom CSS"],
+    live: "https://standarddrift.com/",
+    accent: "accent",
+    caseStudy: {
+      overview:
+        "An art and brand studio in Barcelona that needed an editorial, multilingual home for its services and artists.",
+      problem:
+        "The studio had to present services, a journal and an artists directory to an international audience in several languages.",
+      solution:
+        "A clear editorial structure, TranslatePress for language switching and a video hero that sets the tone without slowing the page.",
+      features: [
+        "Multilingual content with language switcher",
+        "Journal and artists directory",
+        "Services, manifesto and FAQ pages",
+        "Video hero and contact form",
+      ],
+      challenges: "Keeping a video hero and several languages fast and consistent on mobile.",
+      results: ["One site for a multilingual audience", "Editorial look the studio can update itself"],
+    },
+  },
   {
     id: "citygate",
     title: "City Gate Accountants",
